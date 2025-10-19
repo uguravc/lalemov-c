@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Beyaz Lale</title>
 
-    <!-- Playfair Display fontu Google Fonts'tan -->
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet" />
 
     <style>
@@ -94,18 +94,40 @@
             right: 20px;
         }
 
+        .balloon {
+            position: absolute;
+            bottom: -50px;
+            font-size: 3rem;
+            animation-name: floatUp;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            opacity: 0.8;
+            filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.15));
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translateY(-120vh) translateX(20px);
+                opacity: 0;
+            }
+        }
+
         .card {
-            background-color: #f4d1d1;
-            /* pudra rengi */
+            background-color: #fff1e0;
             padding: 30px 40px;
             border-radius: 15px;
+            border: 2px solid #d8b4a0;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             max-width: 600px;
             text-align: center;
             z-index: 1;
             position: relative;
             font-family: 'Playfair Display', serif;
-            /* şık, okunabilir font */
         }
 
         .flower {
@@ -118,10 +140,13 @@
             margin-bottom: 10px;
         }
 
-        p {
+        .typewriter-text {
             font-size: 1.4rem;
             color: #333;
             line-height: 1.6;
+            white-space: pre-wrap;
+            text-align: center;
+            min-height: 5em;
         }
 
         .signature {
@@ -140,11 +165,25 @@
 
 <body>
 
+    <!-- Kalpler -->
     <div class="heart top-left">❤️</div>
     <div class="heart top-right">❤️</div>
     <div class="heart bottom-left">❤️</div>
     <div class="heart bottom-right">❤️</div>
 
+    <!-- Uçan Balonlar -->
+    <div class="balloon" style="left: 5%; animation-duration: 14s; animation-delay: 0s;">🎈</div>
+    <div class="balloon" style="left: 15%; animation-duration: 11s; animation-delay: 2s; color: #ff4d4d;">🎈</div>
+    <div class="balloon" style="left: 25%; animation-duration: 13s; animation-delay: 4s; color: #ffd24d;">🎈</div>
+    <div class="balloon" style="left: 35%; animation-duration: 10s; animation-delay: 6s; color: #66cc66;">🎈</div>
+    <div class="balloon" style="left: 45%; animation-duration: 15s; animation-delay: 8s; color: #4da6ff;">🎈</div>
+    <div class="balloon" style="left: 55%; animation-duration: 12s; animation-delay: 10s; color: #ff66cc;">🎈</div>
+    <div class="balloon" style="left: 65%; animation-duration: 14s; animation-delay: 12s; color: #ff9933;">🎈</div>
+    <div class="balloon" style="left: 75%; animation-duration: 11s; animation-delay: 14s; color: #b366ff;">🎈</div>
+    <div class="balloon" style="left: 85%; animation-duration: 13s; animation-delay: 16s; color: #33ccff;">🎈</div>
+    <div class="balloon" style="left: 95%; animation-duration: 12s; animation-delay: 18s; color: #ff6666;">🎈</div>
+
+    <!-- Emoji arka planı -->
     <div class="emoji-bg">
         <span>🤍🌷</span><span>🤍🌷</span><span>🤍🌷</span><span>🤍🌷</span><span>🤍🌷</span>
         <span>🤍🌷</span><span>🤍🌷</span><span>🤍🌷</span><span>🤍🌷</span><span>🤍🌷</span>
@@ -152,15 +191,30 @@
         <span>🤍🌷</span><span>🤍🌷</span><span>🤍🌷</span><span>🤍🌷</span><span>🤍🌷</span>
     </div>
 
+    <!-- Mesaj Kutusu -->
     <div class="card">
         <div class="flower">🌷</div>
         <h1></h1>
-        <p>
-            Beyaz lale saflığı, masumiyeti, dürüstlüğü ve yeni başlangıçları<br />
-            ifade edermiş... Yani bir nevi ikinci şansları ve güzel geleceği...
-        </p>
+        <p class="typewriter-text" id="typewriter"></p>
         <div class="signature">LALEMOVİÇ</div>
     </div>
+
+    <!-- Typewriter Script -->
+    <script>
+        const text = `Beyaz lale saflığı, masumiyeti, dürüstlüğü ve yeni başlangıçları\nifade edermiş... Yani bir nevi ikinci şansları ve güzel geleceği...Benimde ikinci şanşım olucak mı?`;
+        const el = document.getElementById("typewriter");
+        let i = 0;
+
+        function typeWriter() {
+            if (i < text.length) {
+                el.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 120); // Daha yavaş hız: 120ms
+            }
+        }
+
+        window.onload = typeWriter;
+    </script>
 
 </body>
 
