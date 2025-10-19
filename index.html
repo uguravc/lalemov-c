@@ -19,11 +19,15 @@
                 repeating-linear-gradient(-45deg, transparent 0px, transparent 35px, rgba(255, 255, 255, 0.2) 36px, rgba(255, 255, 255, 0.2) 38px);
             background-size: 80px 80px;
             position: relative;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             overflow: hidden;
+            padding-bottom: 80px;
+            /* Buton için boşluk */
+            box-sizing: border-box;
         }
 
         .emoji-bg {
@@ -128,6 +132,7 @@
             z-index: 1;
             position: relative;
             font-family: 'Playfair Display', serif;
+            margin-bottom: 20px;
         }
 
         .flower {
@@ -159,6 +164,36 @@
             font-family: 'Playfair Display', serif;
             opacity: 0.7;
             user-select: none;
+        }
+
+        #playBtn {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #8e44ad;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s ease;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            user-select: none;
+        }
+
+        #playBtn:hover {
+            background-color: #732d91;
+        }
+
+        #playBtn:disabled {
+            background-color: #aaa;
+            cursor: default;
         }
     </style>
 </head>
@@ -199,9 +234,12 @@
         <div class="signature">LALEMOVİÇ</div>
     </div>
 
-    <!-- Typewriter Script -->
+    <!-- Müzik Başlat Butonu -->
+    <button id="playBtn">🎵 Müzik ile birlikte okumak isterseniz tıklayınız...</button>
+
+    <!-- Typewriter Script ve Müzik -->
     <script>
-        const text = `Beyaz lale saflığı, masumiyeti, dürüstlüğü ve yeni başlangıçları ifade edermiş... \nYani bir nevi ikinci şansları ve güzel geleceği... \nBenimde ikinci şanşım olucak mı?`;
+        const text = `Beyaz lale saflığı, masumiyeti, dürüstlüğü ve yeni başlangıçları ifade edermiş... \nYani bir nevi ikinci şansları ve güzel geleceği...\nBenimde ikinci şanşım olucak mı?`;
         const el = document.getElementById("typewriter");
         let i = 0;
 
@@ -209,14 +247,25 @@
             if (i < text.length) {
                 el.innerHTML += text.charAt(i);
                 i++;
-                setTimeout(typeWriter, 120); // Daha yavaş hız: 120ms
+                setTimeout(typeWriter, 120);
             }
         }
 
-        window.onload = typeWriter;
+        window.onload = () => {
+            typeWriter();
+        };
+
+        const audio = new Audio("https://www.bensound.com/bensound-music/bensound-romantic.mp3");
+        audio.loop = true;
+
+        const playBtn = document.getElementById("playBtn");
+        playBtn.addEventListener("click", () => {
+            audio.play();
+            playBtn.disabled = true;
+            playBtn.textContent = "🎵 Müzik çalıyor...";
+        });
     </script>
 
 </body>
 
 </html>
-
